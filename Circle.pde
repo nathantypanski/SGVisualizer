@@ -1,7 +1,9 @@
-class Circle {
+public class Circle {
   private int xLoc, yLoc, rad;
+  private int currentX, currentY;
   private color colr;
   private int aura; private boolean auraGrowing;
+  private int deg;
   
   //////////////////
   // constructors //
@@ -9,15 +11,15 @@ class Circle {
   
   // constraits: /r/ is the radius, scaled between 0.0 (nothing drawn) and 1.0.
   //             /others/ contains an ArrayList<Circle> of all other objects onscreen.
-  Circle(float r, color c, ArrayList<Circle> others, int xSize, int ySize) {
+  public Circle(float r, color c, ArrayList<Circle> others, int xSize, int ySize) {
     this.aura=0;
+    this.deg=0;
     this.auraGrowing=true;
     this.setRadius(r); 
     this.colr=c;
     boolean found = false;
     int x=0; int y=0;
     while(!found) {
-      print("x");
       x = int(random(0+rad, xSize-rad));
       y = int(random(0+rad, ySize-rad));
       found = true;
@@ -38,14 +40,17 @@ class Circle {
   /////////
   // get //
   /////////
-  int getX() {
-    return this.xLoc;
+  public int getX() {
+    return this.currentX;
   }
-  int getY() {
-    return this.yLoc;
+  public int getY() {
+    return this.currentY;
   }
-  int getRadius() {
+  public int getRadius() {
     return this.rad; 
+  }
+  public int getColor() {
+    return this.colr; 
   }
   /////////
   // set //
@@ -53,28 +58,35 @@ class Circle {
   
   // WARNING: Does not scale properly!
   // constraints: r is a float value between 0 and 1.
-  void setRadius(float r) {
+  public void setRadius(float r) {
     this.rad = int(r*100);
   }
   //////////
   // draw //
   //////////
-  void render() {
+  public void render() {
+    this.currentX = this.xLoc + int(rad*cos(radians(deg)));
+    this.currentY = this.yLoc + int(2*rad*sin(radians(deg)));
     fill(red(colr), green(colr), blue(colr), alpha(colr)/2);
-    ellipse(xLoc, yLoc, rad+aura, rad+aura);
-    if(auraGrowing) {
-      aura++;
-      if(aura>int(rad/2)) {
-        auraGrowing = false;
+    ellipse(this.currentX, this.currentY, this.rad+this.aura, this.rad+this.aura);
+    if(this.auraGrowing) {
+      this.aura++;
+      if(this.aura>int(this.rad)) {
+        this.auraGrowing = false;
       }
     }
     else {
       this.aura--;
-      if(aura<0) {
+      if(this.aura<0) {
         this.auraGrowing=true;
       }
     }
     fill(colr);
-    ellipse(xLoc, yLoc, rad, rad);
+    ellipse(currentX, currentY,
+            this.rad, this.rad);
+    // Increment the degrees of orbit
+    this.deg++;
+    if (this.deg > 360)
+      this.deg=0;
   }
 }
