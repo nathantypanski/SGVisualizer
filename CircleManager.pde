@@ -32,12 +32,12 @@ class CircleManager {
   // draw //
   //////////
   public void render() {
-    // Draw lines connecting the circles. REALLY terrible algorithm used here.
-    for(Circle c : circles) {
-      stroke(red(c.getColor()), green(c.getColor()), blue(c.getColor()),
-             alpha(c.getColor())/2);
-      for(Circle k : circles) {
-        line(c.getX(), c.getY(), k.getX(), k.getY());
+    // Draw lines connecting the circles.
+    stroke(red(circles.get(0).getColor()), green(circles.get(0).getColor()), blue(circles.get(0).getColor()),
+             alpha(circles.get(0).getColor()));
+    for(int i = 0; i < circles.size()/2; i++) {
+      for(int j = 0; j < circles.size(); j++) {
+        line(circles.get(i).getX(), circles.get(i).getY(), circles.get(j).getX(), circles.get(j).getY());
       }
     }
     

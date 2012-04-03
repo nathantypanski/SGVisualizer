@@ -16,11 +16,20 @@ private String numbersFile = new String("numbers.txt");
 private CircleManager circles = new CircleManager();
   
 void setup() {
+  ///////////////////
+  // initial setup //
+  ///////////////////
+  
   size (xSize, ySize);
   frameRate(fps);
   colorMode(RGB);
   smooth();
   noStroke();
+  
+  background(bgColor);
+  
+  // draw the earth
+  // ellipse(xSize/2, ySize/2, xSize/2, ySize/2);
   
   //////////////////
   // calculations //
@@ -41,7 +50,14 @@ void setup() {
 }
 
 void draw() {
-  background(bgColor);
+  fill(0, 255);
+  rect(0, 0, width, height);
+  // draw the earth
+  // fill(75, 189, 35, 20);
+  //ellipse(xSize/2, ySize/2, xSize/2, ySize/2);
+  fill(255);
+  
+  // Draws an ugly grid in the background.
   /*
   colorMode(HSB);
   stroke(hue(bgColor), saturation(bgColor), brightness(bgColor)*1.5);
@@ -55,7 +71,6 @@ void draw() {
   colorMode(RGB);
   noStroke();
   */
-  fill(75, 189, 35, 255);
-  ellipse(xSize/2, ySize/2, xSize/2, ySize/2);
+  
   circles.render();
 }
