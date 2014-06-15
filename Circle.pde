@@ -1,5 +1,4 @@
 public class Circle {
-
   // The initial x and y locations of this circle (used to calculate orbit).
   private int xLoc, yLoc;
   // The radius of this circle.
@@ -21,10 +20,6 @@ public class Circle {
   private int timerEnd;
   private boolean suicide;
 
-  //////////////////
-  // constructors //
-  //////////////////
-
   // constraits: /r/ is the radius, scaled between 0.0 (nothing drawn) and 1.0.
   //             /others/ contains an ArrayList<Circle> of all other objects onscreen.
   public Circle(float r, color c, int lifespan) {
@@ -42,60 +37,46 @@ public class Circle {
     this.setY(int(random(0+rad, ySize-rad)));
   }
 
-  /////////
-  // get //
-  /////////
-
-  // Returns the current x location of this circle.
   public int getX() {
     return this.currentX;
   }
-  // Returns the current y location of this circle.
+
   public int getY() {
     return this.currentY;
   }
-  // Returns the radius of this circle.
+
   public int getRadius() {
     return this.rad;
   }
-  // Returns the color of this circle.
+
   public color getColor() {
     return this.colr;
   }
+
   public boolean killed() {
     return suicide;
   }
-  /////////
-  // set //
-  /////////
 
-  // Sets the x location of this circle.
   public void setX(int x) {
     this.xLoc = x;
     this.currentX = x;
   }
 
-  // Sets the y location of this circle.
   public void setY(int y) {
     this.yLoc = y;
     this.currentY = y;
   }
 
-  // WARNING: Does not scale properly!
   // constraints: r is a float value between 0 and 1.
   public void setRadius(float r) {
     this.rad = int(r);
   }
 
-  //////////
-  // draw //
-  //////////
   public void render() {
     noStroke();
     this.currentX = this.xLoc + int(rad*cos(radians(deg)));
     this.currentY = this.yLoc + int(rad*sin(radians(deg)));
     // draw the aura
-    //fill(red(colr), green(colr), blue(colr), alpha(colr)/5);
     fill(cAura);
     ellipse(this.currentX, this.currentY, this.rad+this.aura, this.rad+this.aura);
     if (millis() % 2 == 0) {
@@ -127,4 +108,3 @@ public class Circle {
     }
   }
 }
-

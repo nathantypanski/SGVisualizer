@@ -49,49 +49,23 @@ private CircleManager bugs;
 
 
 void setup() {
-  ///////////////////F
-  // initial setup //
-  ///////////////////
-
   size (xSize, ySize);
   frameRate(fps);
   colorMode(RGB);
   smooth();
   noStroke();
 
-  // Attempt at making this read from audio outputs
-  /*
-  mixerInfo = AudioSystem.getMixerInfo();
-   //audioSource = new AudioSource();
-   //for (Mixer.Info info : mixerInfo)
-   //System.out.println(info.getName() + info.getDescription());
-   
-   mixer = AudioSystem.getMixer(mixerInfo[1]);
-   System.out.println(mixer.getMixerInfo());
-   Line.Info[] sourceLines = mixer.getSourceLineInfo();
-   for(Line.Info info : sourceLines)
-   System.out.println(info);
-   Line.Info[] targetLines = mixer.getTargetLineInfo();
-   for(Line.Info info : targetLines)   System.out.println(info);
-   
-   // audioSource = new AudioSource(AudioStream(DataLine(targetLines[0])));
-   */
   timer = true;
   timerStart=millis();
   timerEnd=timerEndValue;
 
-  //dayStart=millis();
-  //dayEnd=dayEndValue;
-
   minim = new Minim(this);
-  player = minim.loadFile("ninslip.wav", 1024);
+  player = minim.loadFile("waveform.wav", 1024);
   player.loop();
   background(bgColor);
   fft=new FFT(player.bufferSize(), player.sampleRate());
   fft.window(FFT.HAMMING);
   mgmt = new CircleManager();
-  // Circles that are never connected
-  //bugs = new CircleManager(false);
   flashWhite=true;
   maxFourier=0;
 }
@@ -118,26 +92,9 @@ void draw() {
   }
 
   fft.forward(player.mix);
-  /*for (int i=0; i<50 ; i+=2) {
-    float r = player.right.get(i);
-    ellipse(width/2, height/2, r*250, r*250);
-  }*/
-//  stroke(173, 245, 78, 158);
-  
-//  float r, l;
-
-//      r = player.right.get(50)*100;
-//      l = player.left.get(50)*100;
-
-//    noStroke();
-    
-//    fill(219, 112, 147, 10); 
-//  ellipse(width/2, height/2, r*15, r*15);
-//        ellipse(width/2, height/2, r*15, r*10);
   strokeWeight(15);
   stroke(255, 20);
   noFill();
-//    ellipse(width/2, height/2, l*15, l*15);
   strokeWeight(1); strokeCap(SQUARE);
   for (int i = 0; i < fft.specSize(); i+=20) {
     if (fft.getBand(i)/2>maxFourier/2) {
@@ -157,11 +114,9 @@ void draw() {
   }
   fill(255);
   strokeWeight(20); strokeCap(SQUARE);
-  //System.out.println(fft.specSize());
   stroke(0);
   strokeWeight(1);
   mgmt.render();
-  //bugs.render();
   }
   void stop() {
     player.close();

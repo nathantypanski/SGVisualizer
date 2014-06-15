@@ -21,16 +21,10 @@ class CircleManager {
     connected = true;
   }
 
-  /////////
-  // set //
-  /////////
-
   public void makeCircle(int lifespan) {
-    //circles.add(new Circle(norm(number, 0, 10), cColor, circles, xSize, ySize, number));
     circles.add(new Circle(3, cColor, lifespan));
   }
   public void makeCircle(int lifespan, int cRadius) {
-    //circles.add(new Circle(norm(number, 0, 10), cColor, circles, xSize, ySize, number));
     circles.add(new Circle(cRadius, cColor, lifespan));
   }
 
@@ -43,15 +37,10 @@ class CircleManager {
     int maxSize = max(numbers);
     int minSize = min(numbers);
     for (int i = 0; i < numbers.length; i++) {
-      //print("Making a circle ... ");
       circles.add(new Circle(norm(numbers[i], 0, 10), cColor, numbers[i]));
-      //println(" ... Success!");
     }
   }
 
-  //////////
-  // draw //
-  /////////
   public void render() {
     if (timer && millis() - timerStart>= timerEnd) {
       mgmt.makeCircle(10);
@@ -76,7 +65,6 @@ class CircleManager {
           }
         }
       }
-
       for (Circle c : circles) {
         c.render();
       }
